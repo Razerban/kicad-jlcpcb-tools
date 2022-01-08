@@ -1,4 +1,4 @@
-# ![The main window](https://github.com/Bouni/kicad-jlcpcb-tools/raw/main/jlcpcb-icon.png) KiCAD JLCPCB tools
+# ![The main window](jlcpcb-icon.png) KiCAD JLCPCB tools
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I3I364QTM)
 
@@ -11,11 +11,11 @@ Plugin to generate all files necessary for JLCPCB board fabrication and assembly
 
 Furthermore it lets you search the JLCPCB parts database and assign parts directly to the footprints which result in them being put into the BOM file.
 
-![The main window](https://github.com/Bouni/kicad-jlcpcb-tools/raw/main/images/main.png)
+![The main window](images/main.png)
 
-![The parts library window](https://github.com/Bouni/kicad-jlcpcb-tools/raw/main/images/part_library.png)
+![The parts library window](images/part_library.png)
 
-![The parts details dialog](https://github.com/Bouni/kicad-jlcpcb-tools/raw/main/images/part_details.png)
+![The parts details dialog](images/part_details.png)
 
 ## Warning 🔥
 
@@ -37,7 +37,10 @@ From there you can install the plugin via the GUI.
 
 **Alternatively:**
 
-Simply clone this repo into your scripting/plugins folder, on Windows thats `C:\users\<username>\Documents\kicad\6.0\scripting\plugins\` on linux that would be `/home/<username>/.local/share/kicad/6.0/scripting/plugins`.
+Simply clone this repo into your scripting/plugins folder:
+For Windows: `C:\users\<username>\Documents\kicad\6.0\scripting\plugins\`
+For Linux: `/home/<username>/.local/share/kicad/6.0/scripting/plugins`
+For macOS: `/Users/<username>/Documents/KiCad/6.0/3rdparty/plugins`
 
 ## Usage 🥳
 
@@ -60,7 +63,7 @@ Select one or multiple footprints, click select part. You can select parts with 
 In the upcoming modal dialog, search for parts, select the one of your choice and click select part.
 The LCSC number of your selection will then be assigned to the footprints.
 
-![Footprint selection](https://github.com/Bouni/kicad-jlcpcb-tools/raw/main/images/footprint_selection.png)
+![Footprint selection](images/footprint_selection.png)
 
 ### Generate fabrication data
 
@@ -68,14 +71,14 @@ Generate all neccessary assambly files for your board with a simple click.
 
 A new directory called `jlcpcb` is created, in there two seperate foldes are created, `gerber` and `assembly`.
 
-In the gerber folder all necessary `*.gbr` and `*.drl` files are generated and ziped, ready for upload to JLCPCB.
+In the gerber folder all necessary files are generated and ziped, ready for upload to JLCPCB.
 The zipfile is named `GERBER-<projectname>.zip`
 
-In the assembly folder, two files are generated, `BOM-<projectname>.csv` and `CPL-<projectname>.csv`.
+In the assembly folder, two files are generated, `BOM-<projectname>.csv` and `POS-<projectname>.csv`.
 
-Footprints are included into the BOM and CPL files accordning to their `exclude from BOM` and `exclude from CPL` attributes.
+Footprints are included into the BOM and CPL files according to their `exclude from BOM` and `exclude from CPL` attributes.
 
-![The fabrication files](https://github.com/Bouni/kicad-jlcpcb-tools/raw/main/images/fabrication_files.png)
+![The fabrication files](images/fabrication_files.png)
 
 ## Footprint rotation correction
 
