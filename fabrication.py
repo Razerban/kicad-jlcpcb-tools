@@ -100,12 +100,12 @@ class Fabrication:
         popt.SetSketchPadsOnFabLayers(False)
 
         # Gerber Options
-        popt.SetUseGerberProtelExtensions(False)
+        popt.SetUseGerberProtelExtensions(True)
         popt.SetCreateGerberJobFile(False)
-        popt.SetSubtractMaskFromSilk(False)
+        popt.SetSubtractMaskFromSilk(True)
 
-        popt.SetUseGerberX2format(True)
-        popt.SetIncludeGerberNetlistInfo(True)
+        popt.SetUseGerberX2format(False)
+        popt.SetIncludeGerberNetlistInfo(False)
         popt.SetDisableGerberMacros(False)
 
         popt.SetDrillMarksType(PCB_PLOT_PARAMS.NO_DRILL_SHAPE)
@@ -187,6 +187,7 @@ class Fabrication:
     def generate_excellon(self):
         """Generate Excellon files."""
         drlwriter = EXCELLON_WRITER(self.board)
+        drlwriter.SetMapFileFormat( PLOT_FORMAT_GERBER )
         mirror = False
         minimalHeader = False
         if "6.0.0" in GetBuildVersion():
@@ -195,9 +196,12 @@ class Fabrication:
             offset = VECTOR2I(0, 0)
         mergeNPTH = False
         drlwriter.SetOptions(mirror, minimalHeader, offset, mergeNPTH)
-        drlwriter.SetFormat(False)
+        useRouteOvalHolesDrillMode = False
+        drlwriter.SetRouteModeForOvalHoles(useRouteOvalHolesDrillMode)
+        metricFmt = True
+        drlwriter.SetFormat(metricFmt)
         genDrl = True
-        genMap = False
+        genMap = True
         drlwriter.CreateDrillandMapFilesSet(self.gerberdir, genDrl, genMap)
         self.logger.info(f"Finished generating Excellon files")
 
@@ -207,7 +211,8 @@ class Fabrication:
         with ZipFile(os.path.join(self.gerberdir, zipname), "w") as zipfile:
             for folderName, subfolders, filenames in os.walk(self.gerberdir):
                 for filename in filenames:
-                    if not filename.endswith(("gbr", "drl")):
+                    if not filename.endswith(("gm1", "gbl", "gbs", "gbo", "gtl", "gts", "gtp", "gto",
+                                              "gbr", "drl")):
                         continue
                     filePath = os.path.join(folderName, filename)
                     zipfile.write(filePath, os.path.basename(filePath))
